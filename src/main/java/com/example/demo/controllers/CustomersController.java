@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -25,13 +24,6 @@ public class CustomersController {
     @PostMapping("/customers/sort")
     @Async
     public CompletableFuture<List<Customer>> sortAscendingDuetime(@RequestBody List<Customer> customers) {
-        try {
-            if (LocalDateTime.now().getMinute() == 19) {
-                Thread.sleep(100000L); // sleep for 100 seconds
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         customersService.sortAscendingDuetime(customers);
         return CompletableFuture.completedFuture(customers);
     }
